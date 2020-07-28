@@ -1,5 +1,5 @@
-import {Todo} from "../../models/Todo";
-import {TodoWithUser} from "../../models/TodoWithUser";
+import {Todo} from "../../types/Todo";
+import {TodoWithUser} from "../../types/TodoWithUser";
 
 const LIST_SIZE = 6;
 interface PaginatorInfo {

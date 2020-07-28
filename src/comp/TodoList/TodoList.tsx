@@ -1,7 +1,7 @@
-import {Todo} from "../../models/Todo";
+import {Todo} from "../../types/Todo";
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
-import {TodoWithUser} from "../../models/TodoWithUser";
+import {TodoWithUser} from "../../types/TodoWithUser";
 import TodoListItem from "./TodoListItem/TodoListItem";
 import paginator from "../../bll/utils/paginator";
 import Pagination from '@material-ui/lab/Pagination';

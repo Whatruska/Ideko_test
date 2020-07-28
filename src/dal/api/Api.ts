@@ -1,6 +1,6 @@
 import {AxiosInstance} from "axios";
 import {default as axios} from "axios"
-import {Identifiable} from "../../models/Identifiable";
+import {Identifiable} from "../../types/Identifiable";
 
 const BASE_URL :string = "http://jsonplaceholder.typicode.com/";
 

@@ -1,5 +1,5 @@
-import {ReduxState} from "../../models/ReduxState";
-import {Todo} from "../../models/Todo";
+import {ReduxState} from "../../types/ReduxState";
+import {Todo} from "../../types/Todo";
 
 export class TodoSelector {
     static getTodoArr = (state :ReduxState) :Array<Todo> => {

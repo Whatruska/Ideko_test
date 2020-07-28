@@ -1,6 +1,6 @@
-import {Todo} from "../../models/Todo";
-import {ReducerState} from "../../models/ReducerState";
-import {ValidAction} from "../../models/ValidAction";
+import {Todo} from "../../types/Todo";
+import {ReducerState} from "../../types/ReducerState";
+import {ValidAction} from "../../types/ValidAction";
 import {Todo_Api} from "../../dal/todo_api/Todo_Api";
 
 export interface Todo_State extends ReducerState{

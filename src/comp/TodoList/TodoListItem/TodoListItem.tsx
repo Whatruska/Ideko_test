@@ -1,7 +1,7 @@
-import {Todo} from "../../../models/Todo";
+import {Todo} from "../../../types/Todo";
 import Checkbox from '@material-ui/core/Checkbox';
 import React, {useState} from "react";
-import {TodoWithUser} from "../../../models/TodoWithUser";
+import {TodoWithUser} from "../../../types/TodoWithUser";
 interface AdditionalProps {
     updateTodo: (todo :Todo) => void
 }

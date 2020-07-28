@@ -1,6 +1,6 @@
-import {ReducerState} from "../../models/ReducerState";
-import {User} from "../../models/User";
-import {ValidAction} from "../../models/ValidAction";
+import {ReducerState} from "../../types/ReducerState";
+import {User} from "../../types/User";
+import {ValidAction} from "../../types/ValidAction";
 import {User_Api} from "../../dal/user_api/User_Api";
 
 export interface User_State extends ReducerState{

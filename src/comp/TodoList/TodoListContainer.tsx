@@ -4,12 +4,12 @@ import {fetchTodos, Todo_State, updateTodo} from "../../bll/reducers/Todo_Reduce
 import {useEffect} from "react";
 import React from "react";
 import TodoList from "./TodoList";
-import {ReduxState} from "../../models/ReduxState";
+import {ReduxState} from "../../types/ReduxState";
 import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {UserSelector} from "../../bll/selectors/UserSelector";
 import {fetchUsers, User_State} from "../../bll/reducers/User_Reducer";
-import {TodoWithUser} from "../../models/TodoWithUser";
-import {Todo} from "../../models/Todo";
+import {TodoWithUser} from "../../types/TodoWithUser";
+import {Todo} from "../../types/Todo";
 
 interface DispatchProps {
     fetch: () => void,
