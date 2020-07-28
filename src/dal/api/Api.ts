@@ -1,9 +1,10 @@
 import {AxiosInstance} from "axios";
 import {default as axios} from "axios"
+import {Identifiable} from "../../models/Identifiable";
 
 const BASE_URL :string = "http://jsonplaceholder.typicode.com/";
 
-export class Api<T> {
+export class Api<T extends Identifiable> {
     private api_instance : AxiosInstance
     constructor(url? :string) {
         this.api_instance = axios.create({
@@ -13,5 +14,11 @@ export class Api<T> {
 
     public getInstances = async () : Promise<Array<T>> => {
         return await this.api_instance.get("").then(resp => resp.data);
+    }
+
+    public getInstanceById = async (id :number) : Promise<T> => {
+        return await this.getInstances().then(arr => arr.filter(elem => elem.id === id).reduce((a,b) => {
+            return a;
+        }));
     }
 }

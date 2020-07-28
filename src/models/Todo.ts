@@ -1,6 +1,7 @@
-export interface Todo {
+import {Identifiable} from "./Identifiable";
+
+export interface Todo extends Identifiable{
     userId :number,
-    id :number,
     title :string,
     completed :boolean
 }
