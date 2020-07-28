@@ -17,6 +17,7 @@ const initialState :User_State = {
 
 const User_Reducer = (state = initialState, action :ValidAction<typeof TOGGLE_FETCHING | typeof SET_USERS>) :any => {
     let stateCopy = {...state};
+    stateCopy.userArr = [...state.userArr];
     switch (action.type) {
         case TOGGLE_FETCHING : {
             stateCopy.isFetching = !stateCopy.isFetching;

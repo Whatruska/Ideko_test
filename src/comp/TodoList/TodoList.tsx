@@ -6,16 +6,43 @@ import TodoListItem from "./TodoListItem/TodoListItem";
 import paginator from "../../bll/utils/paginator";
 import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
-
+import {SortingMode} from "../../types/SortingMode";
+import TextField from '@material-ui/core/TextField';
+const LIST_SIZE = 6;
 interface Props {
     todoArr : Array<TodoWithUser>,
     updateTodo: (todo :Todo) => void
 }
 export default function TodoList(props :Props) {
     const [currPage, setCurrPage] = useState(1);
-    const {count, currList} = paginator(currPage, props.todoArr);
+    const [filter, setFilter] = useState("");
+    const [sorting, setSorting] = useState<SortingMode>(SortingMode.STATUS);
+    let count = 200;
+    let currList = props.todoArr;
+    function paginate(){
+        currList = props.todoArr.filter(todo => {
+            if (filter === "") return true;
+            return todo.title.includes(filter);
+        }).sort((a,b) => {
+            if (sorting === SortingMode.STATUS) return Number(a.completed) - Number(b.completed);
+            return a.title.localeCompare(b.title);
+        });
+        count = (Math.ceil(currList.length / LIST_SIZE));
+        let leftIndex = (currPage - 1) * LIST_SIZE;
+        currList = currList.slice(leftIndex, leftIndex + LIST_SIZE);
+    }
+    paginate();
+    let handleFilter = (e: any) => {
+        setFilter(e.target.value);
+    }
+
+    let handlePagination = (e: any, page :number) => {
+        setCurrPage(page);
+    }
+
     return (
         <div>
+            <TextField label="Outlined" variant="outlined" value={filter} onChange={handleFilter}/>
             <NavLink to={"/create"}>
                 <AddIcon/>
             </NavLink>
@@ -24,7 +51,7 @@ export default function TodoList(props :Props) {
                     <TodoListItem {...todo} updateTodo={props.updateTodo}/>
                 )
             })}
-            <Pagination count={count} defaultPage={currPage} onChange={(e, page) => setCurrPage(page)}/>
+            <Pagination count={count} defaultPage={currPage} onChange={handlePagination}/>
         </div>
     )
 }

@@ -58,6 +58,7 @@ const fetchTodos = () :any => {
 
 const Todo_Reducer = (state = initialState, action :ValidAction<AllActions>) :any => {
     let stateCopy = {...state};
+    stateCopy.todoArr = [...state.todoArr];
     switch (action.type) {
         case TOGGLE_FETCHING : {
             stateCopy.isFetching = !stateCopy.isFetching;
@@ -70,6 +71,7 @@ const Todo_Reducer = (state = initialState, action :ValidAction<AllActions>) :an
         }
 
         case UPDATE_TODO : {
+            debugger;
             stateCopy.todoArr = stateCopy.todoArr.filter(todo => todo.id !== action.payload.id);
             stateCopy.todoArr.push(action.payload);
             stateCopy.todoArr = stateCopy.todoArr.sort((a,b) => a.id - b.id);
