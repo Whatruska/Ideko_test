@@ -15,9 +15,14 @@ type Props = DispatchProps & Todo_State;
 let TodoListContainer = (props :Props) => {
     useEffect(() => {
         props.fetch();
-    }, );
+    }, []);
     return (
-        <TodoList todoArr={props.todoArr}/>
+        <>
+            {props.isFetching
+                ? <>Preloader</>
+                : <TodoList todoArr={props.todoArr}/>
+            }
+        </>
     )
 }
 
