@@ -10,6 +10,10 @@ export interface Todo_State extends SystemState{
 
 const TOGGLE_FETCHING = "TODO/FETCHING";
 const SET_TODOS = "TODO/SET_TODOS";
+const UPDATE_TODO = "TODO/UPDATE_TODO";
+const DELETE_TODO = "TODO/DELETE_TODO";
+
+type AllActions = typeof TOGGLE_FETCHING | typeof SET_TODOS | typeof UPDATE_TODO | typeof DELETE_TODO;
 
 const initialState :Todo_State = {
     todoArr : [],
@@ -29,6 +33,20 @@ const setTodos = (todos :Array<Todo>) :ValidAction<typeof SET_TODOS> => {
     }
 }
 
+const updateTodo = (newTodo :Todo) :ValidAction<typeof UPDATE_TODO> => {
+    return {
+        type : UPDATE_TODO,
+        payload : newTodo
+    }
+}
+
+const deleteTodo = (id: number) :ValidAction<typeof DELETE_TODO> => {
+    return {
+        type : DELETE_TODO,
+        payload : id
+    }
+}
+
 const fetchTodos = () :any => {
     return (dispatch:any) => {
         dispatch(toggleFetching());
@@ -39,7 +57,7 @@ const fetchTodos = () :any => {
     }
 }
 
-const Todo_Reducer = (state = initialState, action :ValidAction<typeof TOGGLE_FETCHING | typeof SET_TODOS>) :any => {
+const Todo_Reducer = (state = initialState, action :ValidAction<AllActions>) :any => {
     let stateCopy = {...state};
     switch (action.type) {
         case TOGGLE_FETCHING : {
@@ -51,9 +69,21 @@ const Todo_Reducer = (state = initialState, action :ValidAction<typeof TOGGLE_FE
             stateCopy.todoArr = action.payload;
             break;
         }
+
+        case UPDATE_TODO : {
+            stateCopy.todoArr = stateCopy.todoArr.filter(todo => todo.id !== action.payload.id);
+            stateCopy.todoArr.push(action.payload);
+            stateCopy.todoArr = stateCopy.todoArr.sort((a,b) => a.id - b.id);
+            break;
+        }
+
+        case DELETE_TODO : {
+            stateCopy.todoArr = stateCopy.todoArr.filter(todo => todo.id !== action.payload);
+            break;
+        }
         default : {}
     }
     return stateCopy;
 }
 
-export {Todo_Reducer, fetchTodos}
+export {Todo_Reducer, fetchTodos, updateTodo, deleteTodo}
