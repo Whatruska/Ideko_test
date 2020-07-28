@@ -1,10 +1,9 @@
 import {Todo} from "../../models/Todo";
-import {SystemState} from "../../models/SystemState";
+import {ReducerState} from "../../models/ReducerState";
 import {ValidAction} from "../../models/ValidAction";
 import {Todo_Api} from "../../dal/todo_api/Todo_Api";
 
-export interface Todo_State extends SystemState{
-    todo?: any;
+export interface Todo_State extends ReducerState{
     todoArr : Array<Todo>
 }
 
@@ -81,7 +80,6 @@ const Todo_Reducer = (state = initialState, action :ValidAction<AllActions>) :an
             stateCopy.todoArr = stateCopy.todoArr.filter(todo => todo.id !== action.payload);
             break;
         }
-        default : {}
     }
     return stateCopy;
 }
