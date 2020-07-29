@@ -1,6 +1,6 @@
 // @ts-ignore
 import { connect } from 'react-redux';
-import {fetchTodos, Todo_State, updateTodo} from "../../bll/reducers/Todo_Reducer";
+import {deleteTodo, fetchTodos, Todo_State, updateTodo} from "../../bll/reducers/Todo_Reducer";
 import {useEffect} from "react";
 import React from "react";
 import TodoList from "./TodoList";
@@ -15,6 +15,7 @@ interface DispatchProps {
     fetch: () => void,
     fetchUsers: () => void,
     updateTodo: (todo :Todo) => void
+    deleteTodo: (id :number) => void
 }
 
 type Props = DispatchProps & Todo_State & User_State;
@@ -24,7 +25,6 @@ let TodoListContainer = (props :Props) => {
         props.fetch();
         props.fetchUsers();
     }, []);
-    debugger;
     return (
         <>
             {props.isFetching
@@ -38,6 +38,7 @@ let TodoListContainer = (props :Props) => {
                     return newTask;
                 })}
                     updateTodo={props.updateTodo}
+                    deleteTodo={props.deleteTodo}
                 />
             }
         </>
@@ -62,6 +63,9 @@ let mapDispatch = (dispatch :any) => {
         },
         updateTodo : (todo :Todo) => {
             dispatch(updateTodo(todo));
+        },
+        deleteTodo : (id:number) => {
+            dispatch(deleteTodo(id));
         }
     }
 }

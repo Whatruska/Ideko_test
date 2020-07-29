@@ -3,15 +3,18 @@ import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {TodoWithUser} from "../../types/TodoWithUser";
 import TodoListItem from "./TodoListItem/TodoListItem";
-import paginator from "../../bll/utils/paginator";
 import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import CheckIcon from '@material-ui/icons/Check';
 import {SortingMode} from "../../types/SortingMode";
 import TextField from '@material-ui/core/TextField';
+
 const LIST_SIZE = 6;
 interface Props {
     todoArr : Array<TodoWithUser>,
     updateTodo: (todo :Todo) => void
+    deleteTodo: (id :number) => void
 }
 export default function TodoList(props :Props) {
     const [currPage, setCurrPage] = useState(1);
@@ -43,12 +46,18 @@ export default function TodoList(props :Props) {
     return (
         <div>
             <TextField label="Outlined" variant="outlined" value={filter} onChange={handleFilter}/>
+            <AccountBoxIcon onClick={(e) => {
+                setSorting(SortingMode.USER)
+            }}/>
+            <CheckIcon onClick={(e) => {
+                setSorting(SortingMode.STATUS)
+            }}/>
             <NavLink to={"/create"}>
                 <AddIcon/>
             </NavLink>
             {currList.map(todo => {
                 return (
-                    <TodoListItem {...todo} updateTodo={props.updateTodo}/>
+                    <TodoListItem {...todo} deleteTodo={props.deleteTodo} updateTodo={props.updateTodo}/>
                 )
             })}
             <Pagination count={count} defaultPage={currPage} onChange={handlePagination}/>
