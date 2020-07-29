@@ -46,10 +46,10 @@ export default function TodoList(props :Props) {
     return (
         <div>
             <TextField label="Outlined" variant="outlined" value={filter} onChange={handleFilter}/>
-            <AccountBoxIcon onClick={(e) => {
+            <AccountBoxIcon style={sorting === SortingMode.USER ? {color : "blue"} : {}} onClick={(e) => {
                 setSorting(SortingMode.USER)
             }}/>
-            <CheckIcon onClick={(e) => {
+            <CheckIcon style={sorting === SortingMode.STATUS ? {color : "blue"} : {}} onClick={(e) => {
                 setSorting(SortingMode.STATUS)
             }}/>
             <NavLink to={"/create"}>

@@ -2,10 +2,38 @@ import {Matching} from "../../types/Matching";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import React from "react";
-
-const ProfilePageContainer = (props :Matching) => {
+import {ReduxState} from "../../types/ReduxState";
+import {UserSelector} from "../../bll/selectors/UserSelector";
+import {TodoSelector} from "../../bll/selectors/TodoSelector";
+import {User} from "../../types/User";
+import {Todo} from "../../types/Todo";
+interface MapState {
+    userArr : Array<User>,
+    todoArr : Array<Todo>
+}
+const ProfilePageContainer = (props :Matching & MapState) => {
     const id = props.match.params.id;
-    return (<>Profile {id}</>)
+    debugger;
+    const user = props.userArr.filter(user => user.id === Number(id))[0];
+    const todos = props.todoArr.filter(todo => todo.userId === Number(id));
+    return (
+        <>
+            <h1>{user.name}</h1>
+            {todos.map(todo => {
+                return(
+                    <h3>
+                        {todo.title}
+                    </h3>
+                );
+            })}
+        </>
+    )
 }
 
-export default withRouter(connect()(ProfilePageContainer));
+let mapState = (state :ReduxState) => {
+    return {
+        userArr : UserSelector.getUserArr(state),
+        todoArr : TodoSelector.getTodoArr(state)
+    }
+}
+export default withRouter(connect(mapState)(ProfilePageContainer));

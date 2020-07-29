@@ -22,8 +22,10 @@ type Props = DispatchProps & Todo_State & User_State;
 
 let TodoListContainer = (props :Props) => {
     useEffect(() => {
-        props.fetch();
-        props.fetchUsers();
+        if (props.todoArr.length === 0){
+            props.fetch();
+            props.fetchUsers();
+        }
     }, []);
     return (
         <>
