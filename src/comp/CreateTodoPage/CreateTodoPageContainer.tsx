@@ -8,6 +8,7 @@ import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {UserSelector} from "../../bll/selectors/UserSelector";
 import {createTodo} from "../../bll/reducers/Todo_Reducer";
 import CreateForm, {FormValues} from "./CreateForm";
+import Layout from "../Layout/Layout";
 
 interface Props {
     userArr :Array<User>,
@@ -24,7 +25,7 @@ const CreateTodoPageContainer = (props :Props) => {
         });
     }
     return (
-        <>
+        <Layout title={"Create todo page"}>
             <CreateForm
                 userArr={props.userArr}
                 sendData={create}
@@ -33,7 +34,7 @@ const CreateTodoPageContainer = (props :Props) => {
                 initialTitle={""}
                 message={"Create"}
             />
-        </>
+        </Layout>
     )
 }
 

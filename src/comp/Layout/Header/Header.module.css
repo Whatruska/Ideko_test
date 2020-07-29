@@ -1,0 +1,23 @@
+.Header{
+    display: flex;
+    align-items: center;
+}
+
+.img{
+    border-radius: 5px;
+    margin: 10px 10px;
+    width: 75px;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.logo{
+
+}
+
+.app_title{
+    margin-left: 10px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-size: 2em;
+    font-weight: bold;
+}

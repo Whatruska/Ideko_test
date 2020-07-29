@@ -9,8 +9,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CheckIcon from '@material-ui/icons/Check';
 import {SortingMode} from "../../types/SortingMode";
 import TextField from '@material-ui/core/TextField';
-// @ts-ignore
-import {Helmet} from "react-helmet";
+import Layout from "../Layout/Layout";
 
 const LIST_SIZE = 6;
 interface Props {
@@ -48,10 +47,7 @@ export default function TodoList(props :Props) {
     }
 
     return (
-        <>
-            <Helmet>
-                <title>{`${titleCount} | Ideko test`}</title>
-            </Helmet>
+        <Layout title={`${titleCount} | Ideko test`}>
             <TextField label="Outlined" variant="outlined" value={filter} onChange={handleFilter}/>
             <AccountBoxIcon style={sorting === SortingMode.USER ? {color : "blue"} : {}} onClick={(e) => {
                 setSorting(SortingMode.USER)
@@ -68,6 +64,6 @@ export default function TodoList(props :Props) {
                 )
             })}
             <Pagination count={count} defaultPage={currPage} onChange={handlePagination}/>
-        </>
+        </Layout>
     )
 }

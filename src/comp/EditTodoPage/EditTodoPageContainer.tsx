@@ -10,6 +10,7 @@ import {UserSelector} from "../../bll/selectors/UserSelector";
 import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {updateTodo} from "../../bll/reducers/Todo_Reducer";
 import CreateForm, {FormValues} from "../CreateTodoPage/CreateForm";
+import Layout from "../Layout/Layout";
 
 interface Props {
     userArr :Array<User>,
@@ -27,7 +28,7 @@ const EditTodoPageContainer = (props :Props & Matching) => {
         })
     }
     return (
-        <>
+        <Layout title={"Edit todo page"}>
             <CreateForm
                 userArr={props.userArr}
                 sendData={update}
@@ -36,7 +37,7 @@ const EditTodoPageContainer = (props :Props & Matching) => {
                 initialTitle={todo.title}
                 message={"Edit"}
             />
-        </>
+        </Layout>
     )
 }
 

@@ -7,17 +7,17 @@ import {UserSelector} from "../../bll/selectors/UserSelector";
 import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {User} from "../../types/User";
 import {Todo} from "../../types/Todo";
+import Layout from "../Layout/Layout";
 interface MapState {
     userArr : Array<User>,
     todoArr : Array<Todo>
 }
 const ProfilePageContainer = (props :Matching & MapState) => {
     const id = props.match.params.id;
-    debugger;
     const user = props.userArr.filter(user => user.id === Number(id))[0];
     const todos = props.todoArr.filter(todo => todo.userId === Number(id));
     return (
-        <>
+        <Layout title={"Profile page"}>
             <h1>{user.name}</h1>
             {todos.map(todo => {
                 return(
@@ -26,7 +26,7 @@ const ProfilePageContainer = (props :Matching & MapState) => {
                     </h3>
                 );
             })}
-        </>
+        </Layout>
     )
 }
 
