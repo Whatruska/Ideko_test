@@ -2,14 +2,16 @@ import {Todo} from "../../types/Todo";
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {TodoWithUser} from "../../types/TodoWithUser";
-import TodoListItem from "./TodoListItem/TodoListItem";
 import Pagination from '@material-ui/lab/Pagination';
 import AddIcon from '@material-ui/icons/Add';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import CheckIcon from '@material-ui/icons/Check';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import {SortingMode} from "../../types/SortingMode";
 import TextField from '@material-ui/core/TextField';
 import Layout from "../Layout/Layout";
+
+import classes from "./TodoList.module.css";
+import TodoTable from "./TodoTable/TodoTable";
 
 const LIST_SIZE = 6;
 interface Props {
@@ -46,24 +48,44 @@ export default function TodoList(props :Props) {
         setCurrPage(page);
     }
 
+    let styles = {
+        iconStyles : {
+            fontSize : "40px",
+            margin : "0px 5px",
+            cursor : "pointer",
+        }
+    }
     return (
-        <Layout title={`${titleCount} | Ideko test`}>
-            <TextField label="Outlined" variant="outlined" value={filter} onChange={handleFilter}/>
-            <AccountBoxIcon style={sorting === SortingMode.USER ? {color : "blue"} : {}} onClick={(e) => {
-                setSorting(SortingMode.USER)
-            }}/>
-            <CheckIcon style={sorting === SortingMode.STATUS ? {color : "blue"} : {}} onClick={(e) => {
-                setSorting(SortingMode.STATUS)
-            }}/>
-            <NavLink to={"/create"}>
-                <AddIcon/>
-            </NavLink>
-            {currList.map(todo => {
-                return (
-                    <TodoListItem {...todo} deleteTodo={props.deleteTodo} updateTodo={props.updateTodo}/>
-                )
-            })}
-            <Pagination count={count} defaultPage={currPage} onChange={handlePagination}/>
+        <Layout title={`${titleCount} todos | Ideko test`}>
+            <div className={classes.TodoList}>
+                <h2>Todo List</h2>
+                <div className={classes.toolbar}>
+                    <TextField label="Search" variant="outlined" value={filter} onChange={handleFilter}/>
+                    <div className={classes.sortingIcons}>
+                        <div className={classes.sorting_title}>
+                            Sort by:
+                        </div>
+                        <AccountBoxIcon style={Object.assign(sorting === SortingMode.USER ? {color : "blue"} : {}, styles.iconStyles)} onClick={(e) => {
+                            setSorting(SortingMode.USER)
+                        }}/>
+                        <CheckBoxIcon style={Object.assign(sorting === SortingMode.STATUS ? {color : "blue"} : {}, styles.iconStyles)} onClick={(e) => {
+                            setSorting(SortingMode.STATUS)
+                        }}/>
+                    </div>
+                    <NavLink to={"/create"}>
+                        <button className={classes.createBtn}>
+                            <div>Create Todo</div>
+                            <AddIcon style={{marginLeft : "10px"}}/>
+                        </button>
+                    </NavLink>
+                </div>
+                <TodoTable
+                    currList={currList}
+                    updateTodo={props.updateTodo}
+                    deleteTodo={props.deleteTodo}
+                />
+                <Pagination style={{margin : "10px 0px"}} count={count} defaultPage={currPage} onChange={handlePagination}/>
+            </div>
         </Layout>
     )
 }

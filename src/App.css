@@ -2,3 +2,22 @@ a{
     text-decoration: none;
     color: black;
 }
+
+button{
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 5px;
+}
+
+*{
+    transition: .3s all linear;
+}
+
+.MuiTableContainer-root{
+    width: 80% !important;
+    box-shadow: 5px 5px 15px gray !important;
+    margin: 15px 0px;
+    min-height: 67vh;
+}
