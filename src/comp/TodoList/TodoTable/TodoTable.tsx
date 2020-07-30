@@ -12,6 +12,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {NavLink} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
+import PersonIcon from '@material-ui/icons/Person';
 import {createStyles, Theme, withStyles} from "@material-ui/core";
 import classes from "./TodoTable.module.css";
 interface Props {
@@ -62,7 +63,13 @@ export default function TodoTable(props:Props) {
                                             />
                                         </TableCell>
                                         <TableCell align="right">{todo.title}</TableCell>
-                                        <TableCell align="right">{todo.username}</TableCell>
+                                        <TableCell align="right">
+                                            <NavLink to={`profile/${todo.userId}`}>
+                                                <div className={classes.username}>
+                                                    <>{todo.username}</> <PersonIcon/>
+                                                </div>
+                                            </NavLink>
+                                        </TableCell>
                                         <TableCell component="div">
                                             <div className={classes.toolbar}>
                                                 <NavLink to={`/edit/${todo.id}`}>

@@ -8,6 +8,8 @@ import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {User} from "../../types/User";
 import {Todo} from "../../types/Todo";
 import Layout from "../Layout/Layout";
+import classes from "./ProfilePage.module.css";
+import InitHOC from "../InitHOC/InitHOC";
 interface MapState {
     userArr : Array<User>,
     todoArr : Array<Todo>
@@ -18,14 +20,19 @@ const ProfilePageContainer = (props :Matching & MapState) => {
     const todos = props.todoArr.filter(todo => todo.userId === Number(id));
     return (
         <Layout title={"Profile page"}>
-            <h1>{user.name}</h1>
-            {todos.map(todo => {
-                return(
-                    <h3>
-                        {todo.title}
-                    </h3>
-                );
-            })}
+            <div className={classes.profileWrapper}>
+                <h1>{user.name}</h1>
+                <h3>Tasks</h3>
+                <ol>
+                    {todos.map(todo => {
+                        return(
+                            <li>
+                                {todo.title}
+                            </li>
+                        );
+                    })}
+                </ol>
+            </div>
         </Layout>
     )
 }
@@ -36,4 +43,4 @@ let mapState = (state :ReduxState) => {
         todoArr : TodoSelector.getTodoArr(state)
     }
 }
-export default withRouter(connect(mapState)(ProfilePageContainer));
+export default withRouter(connect(mapState)(InitHOC(ProfilePageContainer)));

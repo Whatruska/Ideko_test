@@ -27,3 +27,9 @@
 .deleteIcon:hover{
     color: red;
 }
+
+.username{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
