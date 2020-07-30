@@ -13,6 +13,7 @@ import {NavLink} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {createStyles, Theme, withStyles} from "@material-ui/core";
+import classes from "./TodoTable.module.css";
 interface Props {
     currList :Array<TodoWithUser>,
     updateTodo: (todo :Todo) => void,
@@ -27,51 +28,59 @@ export default function TodoTable(props:Props) {
                 color: theme.palette.common.white,
             },
             body: {
-                fontSize: 18,
+                fontSize: 18
             },
         }),
     )(TableCell);
+
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell><b>Status</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Title</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Username</b></StyledTableCell>
-                        <StyledTableCell align="right"><b>Toolbar</b></StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {props.currList.map((todo) => {
-                        let handleCheck = () => {
-                            let newTodo = {...todo};
-                            newTodo.completed = !todo.completed;
-                            props.updateTodo(newTodo);
-                        }
-                        return(
-                            <TableRow key={todo.id}>
-                                <TableCell component="div" scope="row">
-                                    <Checkbox
-                                        checked={todo.completed}
-                                        onChange={handleCheck}
-                                    />
-                                </TableCell>
-                                <TableCell align="right">{todo.title}</TableCell>
-                                <TableCell align="right">{todo.username}</TableCell>
-                                <TableCell component="div">
-                                    <NavLink to={`/edit/${todo.id}`}>
-                                        <CreateIcon/>
-                                    </NavLink>
-                                    <DeleteIcon onClick={(e) => {
-                                        props.deleteTodo(todo.id)
-                                    }}/>
-                                </TableCell>
+        <div className={classes.tableWrapper}>
+            {props.currList.length > 0
+                ? <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell><b>Status</b></StyledTableCell>
+                                <StyledTableCell align="right"><b>Title</b></StyledTableCell>
+                                <StyledTableCell align="right"><b>Username</b></StyledTableCell>
+                                <StyledTableCell align="center"><b>Toolbar</b></StyledTableCell>
                             </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {props.currList.map((todo) => {
+                                let handleCheck = () => {
+                                    let newTodo = {...todo};
+                                    newTodo.completed = !todo.completed;
+                                    props.updateTodo(newTodo);
+                                }
+                                return(
+                                    <TableRow key={todo.id}>
+                                        <TableCell component="div" scope="row">
+                                            <Checkbox
+                                                checked={todo.completed}
+                                                onChange={handleCheck}
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">{todo.title}</TableCell>
+                                        <TableCell align="right">{todo.username}</TableCell>
+                                        <TableCell component="div">
+                                            <div className={classes.toolbar}>
+                                                <NavLink to={`/edit/${todo.id}`}>
+                                                    <CreateIcon className={`${classes.icon}`}/>
+                                                </NavLink>
+                                                <DeleteIcon className={`${classes.icon} ${classes.deleteIcon}`} onClick={(e) => {
+                                                    props.deleteTodo(todo.id)
+                                                }}/>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                : <h1>Try another search request</h1>
+            }
+        </div>
     );
 }

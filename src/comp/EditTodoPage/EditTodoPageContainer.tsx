@@ -11,6 +11,7 @@ import {TodoSelector} from "../../bll/selectors/TodoSelector";
 import {updateTodo} from "../../bll/reducers/Todo_Reducer";
 import CreateForm, {FormValues} from "../CreateTodoPage/CreateForm";
 import Layout from "../Layout/Layout";
+import InitHOC from "../InitHOC/InitHOC";
 
 interface Props {
     userArr :Array<User>,
@@ -56,4 +57,4 @@ let mapDispatch = (dispatch :any) => {
     }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(EditTodoPageContainer));
+export default withRouter(connect(mapState, mapDispatch)(InitHOC(EditTodoPageContainer)));

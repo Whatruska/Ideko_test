@@ -22,7 +22,7 @@ interface Props {
 export default function TodoList(props :Props) {
     const [currPage, setCurrPage] = useState(1);
     const [filter, setFilter] = useState("");
-    const [sorting, setSorting] = useState<SortingMode>(SortingMode.STATUS);
+    const [sorting, setSorting] = useState<SortingMode>(SortingMode.USER);
     let count = 200;
     let currList = props.todoArr;
     let titleCount = 0;

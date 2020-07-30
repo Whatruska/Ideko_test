@@ -10,6 +10,7 @@ import {UserSelector} from "../../bll/selectors/UserSelector";
 import {fetchUsers, User_State} from "../../bll/reducers/User_Reducer";
 import {TodoWithUser} from "../../types/TodoWithUser";
 import {Todo} from "../../types/Todo";
+import Preloader from "../Preloader/Preloader";
 
 interface DispatchProps {
     fetch: () => void,
@@ -30,7 +31,7 @@ let TodoListContainer = (props :Props) => {
     return (
         <>
             {props.isFetching
-                ? <>Preloader</>
+                ? <Preloader/>
                 : <TodoList todoArr={props.todoArr.map(todo => {
                     let user = props.userArr.filter(user => user.id === todo.userId)[0];
                     let newTask :TodoWithUser = {

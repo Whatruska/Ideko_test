@@ -1,3 +1,29 @@
 .table{
 
 }
+
+.tableWrapper{
+    min-height: 67vh;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toolbar{
+    display: flex;
+    justify-content: space-around;
+}
+
+.icon{
+    font-size: 28px !important;
+    cursor: pointer;
+}
+
+.icon:hover{
+    color: var(--green);
+}
+
+.deleteIcon:hover{
+    color: red;
+}

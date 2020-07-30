@@ -3,6 +3,7 @@ import {Field, Form, FormikErrors, FormikProps, withFormik} from "formik";
 import React from "react";
 import {User} from "../../types/User";
 import {NavLink} from "react-router-dom";
+import classes from "./CreateForm.module.css";
 
 export interface FormValues {
     userId: number;
@@ -18,10 +19,10 @@ interface OtherProps {
 const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Sendiable>) => {
     const { touched, errors, isSubmitting, message, values } = props;
     return (
-        <Form>
-            <h1>{message}</h1>
-            <Field type="text" name="title" placeholder={"Title"}/>
-            {touched.title && errors.title && <div>{errors.title}</div>}
+        <Form className={classes.form}>
+            <h1>{message} todo</h1>
+            <Field type="text" name="title" style={errors.title ? {borderBottomColor : "red"} : {}} placeholder={"Title"} autocomplete={false}/>
+            {touched.title && errors.title && <div className={classes.error}>{errors.title}</div>}
 
             <Field name="userId" as="select" placeholder="Choose user">
                 {props.userArr.map(user => {
@@ -29,6 +30,7 @@ const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Send
                 })}
             </Field>
 
+            <h3>Is completed:</h3>
             <Field component="div" name="completed">
                 <input
                     type="radio"
@@ -49,7 +51,7 @@ const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Send
                 <label htmlFor="completedFalse">False</label>
             </Field>
             <button type="submit" disabled={isSubmitting}>
-                Submit
+                {message}
             </button>
             {isSubmitting
                 ? <NavLink to={"/"}>

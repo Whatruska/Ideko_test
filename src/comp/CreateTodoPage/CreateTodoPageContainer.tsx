@@ -9,6 +9,7 @@ import {UserSelector} from "../../bll/selectors/UserSelector";
 import {createTodo} from "../../bll/reducers/Todo_Reducer";
 import CreateForm, {FormValues} from "./CreateForm";
 import Layout from "../Layout/Layout";
+import InitHOC from "../InitHOC/InitHOC";
 
 interface Props {
     userArr :Array<User>,
@@ -53,4 +54,4 @@ let mapDispatch = (dispatch :any) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(CreateTodoPageContainer);
+export default connect(mapState, mapDispatch)(InitHOC(CreateTodoPageContainer));
