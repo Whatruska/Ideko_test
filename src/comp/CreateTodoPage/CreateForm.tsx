@@ -27,12 +27,12 @@ const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Send
     return (
         <Form className={classes.form}>
             <h1>{message} todo</h1>
-            <Field type="text" name="title" style={errors.title ? {borderBottomColor : "red"} : {}} placeholder={"Title"} autocomplete={false}/>
+            <Field type="text" name="title" style={errors.title ? {borderBottomColor : "red"} : {}} placeholder={"Title"} autoComplete={"false"}/>
             {touched.title && errors.title && <div className={classes.error}>{errors.title}</div>}
 
             <Field name="userId" as="select" placeholder="Choose user">
                 {props.userArr.map(user => {
-                    return (<option value={user.id}>{user.name}</option>)
+                    return (<option value={user.id} key={user.id}>{user.name}</option>)
                 })}
             </Field>
 
@@ -63,7 +63,7 @@ const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Send
                 <Alert severity="success">
                     <NavLink to={"/"}>
                         <div style={{color : "white"}}>
-                            Task sucessfully {message.toLowerCase() === "create" ? message.toLowerCase() + "d." : message.toLowerCase() + "ed."}
+                            Todo sucessfully {message.toLowerCase() === "create" ? message.toLowerCase() + "d." : message.toLowerCase() + "ed."}
                         </div>
                     </NavLink>
                 </Alert>

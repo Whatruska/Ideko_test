@@ -1,0 +1,15 @@
+.createBtn{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    color: white;
+    background-color: var(--green);
+    box-shadow: 5px 5px 15px var(--green);
+    transition: .3s all linear !important;
+}
+
+.createBtn:hover{
+    background-color: var(--light-green);
+    box-shadow: 0px 0px 0px var(--green);
+}

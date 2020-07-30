@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import Checkbox from "@material-ui/core/Checkbox";
 import {NavLink} from "react-router-dom";
 import CreateIcon from "@material-ui/icons/Create";
@@ -15,6 +15,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import PersonIcon from '@material-ui/icons/Person';
 import {createStyles, Theme, withStyles} from "@material-ui/core";
 import classes from "./TodoTable.module.css";
+import DeleteBtn from "../../common/DeleteBtn/DeleteBtn";
+import CommonTooltip from "../../common/CommonTooltip/CommonTooltip";
 interface Props {
     currList :Array<TodoWithUser>,
     updateTodo: (todo :Todo) => void,
@@ -49,6 +51,9 @@ export default function TodoTable(props:Props) {
                         </TableHead>
                         <TableBody>
                             {props.currList.map((todo) => {
+                                let del = (e : SyntheticEvent) => {
+                                    props.deleteTodo(todo.id)
+                                }
                                 let handleCheck = () => {
                                     let newTodo = {...todo};
                                     newTodo.completed = !todo.completed;
@@ -56,7 +61,7 @@ export default function TodoTable(props:Props) {
                                 }
                                 return(
                                     <TableRow key={todo.id}>
-                                        <TableCell component="div" scope="row">
+                                        <TableCell component="td" scope="row">
                                             <Checkbox
                                                 checked={todo.completed}
                                                 onChange={handleCheck}
@@ -70,14 +75,14 @@ export default function TodoTable(props:Props) {
                                                 </div>
                                             </NavLink>
                                         </TableCell>
-                                        <TableCell component="div">
+                                        <TableCell component="td">
                                             <div className={classes.toolbar}>
-                                                <NavLink to={`/edit/${todo.id}`}>
-                                                    <CreateIcon className={`${classes.icon}`}/>
-                                                </NavLink>
-                                                <DeleteIcon className={`${classes.icon} ${classes.deleteIcon}`} onClick={(e) => {
-                                                    props.deleteTodo(todo.id)
-                                                }}/>
+                                                <CommonTooltip title={"Edit"}>
+                                                    <NavLink to={`/edit/${todo.id}`}>
+                                                        <CreateIcon className={`${classes.icon}`}/>
+                                                    </NavLink>
+                                                </CommonTooltip>
+                                                <DeleteBtn del={del} classes={classes.deleteIcon}/>
                                             </div>
                                         </TableCell>
                                     </TableRow>

@@ -24,8 +24,8 @@
     color: var(--green);
 }
 
-.deleteIcon:hover{
-    color: red;
+.deleteIcon{
+    font-size: 28px !important;
 }
 
 .username{

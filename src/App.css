@@ -14,7 +14,7 @@ button{
 *{
     --green : #01b931;
     --light-green : #00cd36;
-    transition: .3s all linear;
+    transition: .3s color, background-color linear;
 }
 
 input, select{
@@ -48,6 +48,7 @@ button[type="submit"]{
     color: white;
     padding: 10px 10px;
     box-shadow: 5px 5px 10px var(--green);
+    transition: .3s all linear !important;
 }
 
 button[type="submit"]:hover{

@@ -1,18 +1,17 @@
 import {Todo} from "../../types/Todo";
 import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
 import {TodoWithUser} from "../../types/TodoWithUser";
 import Pagination from '@material-ui/lab/Pagination';
-import AddIcon from '@material-ui/icons/Add';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import {SortingMode} from "../../types/SortingMode";
 import TextField from '@material-ui/core/TextField';
 import Layout from "../Layout/Layout";
-
 import classes from "./TodoList.module.css";
 import TodoTable from "./TodoTable/TodoTable";
 import {Theme, useTheme} from "@material-ui/core";
+import CreateLinkBtn from "../common/CreateLinkBtn/CreateLinkBtn";
+import CommonTooltip from "../common/CommonTooltip/CommonTooltip";
 
 const LIST_SIZE = 6;
 interface Props {
@@ -67,19 +66,18 @@ export default function TodoList(props :Props) {
                         <div className={classes.sorting_title}>
                             Sort by:
                         </div>
-                        <AccountBoxIcon style={Object.assign(sorting === SortingMode.USER ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
-                            setSorting(SortingMode.USER)
-                        }}/>
-                        <CheckBoxIcon style={Object.assign(sorting === SortingMode.STATUS ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
-                            setSorting(SortingMode.STATUS)
-                        }}/>
+                        <CommonTooltip title={"Username"}>
+                            <AccountBoxIcon style={Object.assign(sorting === SortingMode.USER ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
+                                setSorting(SortingMode.USER)
+                            }}/>
+                        </CommonTooltip>
+                        <CommonTooltip title={"Status"}>
+                            <CheckBoxIcon style={Object.assign(sorting === SortingMode.STATUS ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
+                                setSorting(SortingMode.STATUS)
+                            }}/>
+                        </CommonTooltip>
                     </div>
-                    <NavLink to={"/create"}>
-                        <button className={classes.createBtn}>
-                            <div>Create Todo</div>
-                            <AddIcon style={{marginLeft : "10px"}}/>
-                        </button>
-                    </NavLink>
+                    <CreateLinkBtn/>
                 </div>
                 <TodoTable
                     currList={currList}
