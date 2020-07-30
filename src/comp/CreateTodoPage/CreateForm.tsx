@@ -3,6 +3,8 @@ import {Field, Form, FormikErrors, FormikProps, withFormik} from "formik";
 import React from "react";
 import {User} from "../../types/User";
 import {NavLink} from "react-router-dom";
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import classes from "./CreateForm.module.css";
 
 export interface FormValues {
@@ -13,6 +15,10 @@ export interface FormValues {
 
 interface OtherProps {
     message: string;
+}
+
+function Alert(props :any) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
 // Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
@@ -53,12 +59,15 @@ const InnerForm = (props: OtherProps & Sendiable & FormikProps<FormValues & Send
             <button type="submit" disabled={isSubmitting}>
                 {message}
             </button>
-            {isSubmitting
-                ? <NavLink to={"/"}>
-                    Home
-                </NavLink>
-                : <></>
-            }
+            <Snackbar open={isSubmitting} autoHideDuration={6000}>
+                <Alert severity="success">
+                    <NavLink to={"/"}>
+                        <div style={{color : "white"}}>
+                            Task sucessfully {message.toLowerCase() === "create" ? message.toLowerCase() + "d." : message.toLowerCase() + "ed."}
+                        </div>
+                    </NavLink>
+                </Alert>
+            </Snackbar>
         </Form>
     );
 };

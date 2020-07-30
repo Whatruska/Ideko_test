@@ -12,6 +12,7 @@ import Layout from "../Layout/Layout";
 
 import classes from "./TodoList.module.css";
 import TodoTable from "./TodoTable/TodoTable";
+import {Theme, useTheme} from "@material-ui/core";
 
 const LIST_SIZE = 6;
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
     deleteTodo: (id :number) => void
 }
 export default function TodoList(props :Props) {
+    const theme :Theme = useTheme();
     const [currPage, setCurrPage] = useState(1);
     const [filter, setFilter] = useState("");
     const [sorting, setSorting] = useState<SortingMode>(SortingMode.USER);
@@ -65,10 +67,10 @@ export default function TodoList(props :Props) {
                         <div className={classes.sorting_title}>
                             Sort by:
                         </div>
-                        <AccountBoxIcon style={Object.assign(sorting === SortingMode.USER ? {color : "blue"} : {}, styles.iconStyles)} onClick={(e) => {
+                        <AccountBoxIcon style={Object.assign(sorting === SortingMode.USER ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
                             setSorting(SortingMode.USER)
                         }}/>
-                        <CheckBoxIcon style={Object.assign(sorting === SortingMode.STATUS ? {color : "blue"} : {}, styles.iconStyles)} onClick={(e) => {
+                        <CheckBoxIcon style={Object.assign(sorting === SortingMode.STATUS ? {color : theme.palette.primary.main} : {}, styles.iconStyles)} onClick={(e) => {
                             setSorting(SortingMode.STATUS)
                         }}/>
                     </div>
