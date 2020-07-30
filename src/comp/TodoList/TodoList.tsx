@@ -32,7 +32,7 @@ export default function TodoList(props :Props) {
             return todo.title.includes(filter);
         }).sort((a,b) => {
             if (sorting === SortingMode.STATUS) return Number(a.completed) - Number(b.completed);
-            return a.title.localeCompare(b.title);
+            return a.userId - b.userId;
         });
         titleCount = currList.length;
         count = (Math.ceil(currList.length / LIST_SIZE));
